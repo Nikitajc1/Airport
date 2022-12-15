@@ -1,4 +1,6 @@
-public class Ticket implements Comparable<Ticket>{
+import java.util.Comparator;
+
+public class Ticket implements Comparable<Ticket>, Comparator<Ticket> {
     private int id;
     private int price;
     private String AirportOut;
@@ -64,6 +66,17 @@ public class Ticket implements Comparable<Ticket>{
         if (this.price < o.getPrice()){
             return - 1;
         } else if (this.price > o.getPrice()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int compare(Ticket o1, Ticket o2) {
+        if (o1.getTimeInMinute() < o2.getTimeInMinute()){
+            return - 1;
+        } else if (o1.getTimeInMinute() > o2.getTimeInMinute()) {
             return 1;
         } else {
             return 0;
