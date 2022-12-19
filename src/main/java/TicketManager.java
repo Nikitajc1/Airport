@@ -17,7 +17,7 @@ public class TicketManager {
 
         ArrayList<Ticket> list = new ArrayList<>();
         for (Ticket items : repos.repository()) {
-            if (items.getAirportOut() == from & items.getAirportIn() == to) {
+            if (items.getAirportOut().equals(from) & items.getAirportIn().equals(to)) {
                 list.add(items);
             }
         }
