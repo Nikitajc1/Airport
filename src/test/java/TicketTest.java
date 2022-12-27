@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class TicketTest {
     TicketRepository repo = new TicketRepository();
@@ -14,31 +13,14 @@ public class TicketTest {
     Ticket ticket3 = new Ticket(3, 20000, "OGZ", "FRU", 560);
     Ticket ticket4 = new Ticket(4, 23299, "OGZ", "FRU", 490);
     Ticket ticket5 = new Ticket(5, 7999, "KUF", "GOJ", 90);
-    Ticket ticket6 = new Ticket(6, 9999, "LED", "MOW", 80);
-    Ticket ticket7 = new Ticket(7, 13999, "LED", "MOW", 210);
+    Ticket ticket6 = new Ticket(6, 9999, "KUF", "GOJ", 80);
+    Ticket ticket7 = new Ticket(7, 13999, "MOW", "OGZ", 210);
     Ticket ticket8 = new Ticket(8, 43599, "LED", "MOW", 450);
     Ticket ticket9 = new Ticket(9, 35999, "LED", "MOW", 670);
     Ticket ticket10 = new Ticket(10, 37000, "LED", "MOW", 550);
 
     @Test
     public void testFindAll() {
-        manager.add(ticket1);
-        manager.add(ticket2);
-        manager.add(ticket3);
-        manager.add(ticket4);
-
-        ArrayList<Ticket> expected = new ArrayList<>();
-        expected.add(ticket1);
-        expected.add(ticket2);
-
-        ArrayList<Ticket> actual;
-        actual = manager.findAll("LED", "MOW", ticket1);
-
-        Assertions.assertIterableEquals(expected, actual);
-    }
-
-    @Test
-    public void testFindAllMany() {
         manager.add(ticket1);
         manager.add(ticket2);
         manager.add(ticket3);
@@ -50,20 +32,29 @@ public class TicketTest {
         manager.add(ticket9);
         manager.add(ticket10);
 
+        Ticket[] expected = {ticket1, ticket2, ticket8, ticket10, ticket9};
+        Ticket[] actual = manager.findAll("LED", "MOW", ticket1);
 
-        ArrayList<Ticket> expected = new ArrayList<>();
-        expected.add(ticket6);
-        expected.add(ticket1);
-        expected.add(ticket7);
-        expected.add(ticket2);
-        expected.add(ticket8);
-        expected.add(ticket10);
-        expected.add(ticket9);
+        Assertions.assertArrayEquals(expected, actual);
+    }
 
-        ArrayList<Ticket> actual;
-        actual = manager.findAll("LED", "MOW", ticket1);
+    @Test
+    public void testFindAll1() {
+        manager.add(ticket1);
+        manager.add(ticket2);
+        manager.add(ticket3);
+        manager.add(ticket4);
+        manager.add(ticket5);
+        manager.add(ticket6);
+        manager.add(ticket7);
+        manager.add(ticket8);
+        manager.add(ticket9);
+        manager.add(ticket10);
 
-        Assertions.assertIterableEquals(expected, actual);
+        Ticket[] expected = {ticket7};
+        Ticket[] actual = manager.findAll("MOW", "OGZ", ticket7);
+
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -93,6 +84,26 @@ public class TicketTest {
         Ticket actual = repo.findById(ticket3.getId());
 
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testFindAllIfDoesNotExist() {
+        manager.add(ticket1);
+        manager.add(ticket2);
+        manager.add(ticket3);
+        manager.add(ticket4);
+        manager.add(ticket5);
+        manager.add(ticket6);
+        manager.add(ticket7);
+        manager.add(ticket8);
+        manager.add(ticket9);
+        manager.add(ticket10);
+
+        Ticket[] expected = new Ticket[0];
+
+        Ticket[] actual = manager.findAll("L", "M", ticket1);
+
+        Assertions.assertArrayEquals(expected, actual);
     }
 
 }
