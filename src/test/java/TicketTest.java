@@ -32,16 +32,10 @@ public class TicketTest {
         manager.add(ticket9);
         manager.add(ticket10);
 
-        ArrayList<Ticket> expected = new ArrayList<>();
-        expected.add(ticket2);
-        expected.add(ticket1);
-        expected.add(ticket9);
-        expected.add(ticket10);
-        expected.add(ticket8);
+        Ticket[] expected = {ticket2, ticket1, ticket9, ticket10, ticket8};
+        Ticket[] actual = manager.findAll("LED", "MOW");
 
-        ArrayList<Ticket> actual = manager.findAll("LED", "MOW");
-
-        Assertions.assertIterableEquals(expected, actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -57,12 +51,10 @@ public class TicketTest {
         manager.add(ticket9);
         manager.add(ticket10);
 
-        ArrayList<Ticket> expected = new ArrayList<>();
-        expected.add(ticket7);
+        Ticket[] expected = {ticket7};
+        Ticket[] actual = manager.findAll("MOW", "OGZ");
 
-        ArrayList<Ticket> actual = manager.findAll("MOW", "OGZ");
-
-        Assertions.assertIterableEquals(expected, actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -95,7 +87,7 @@ public class TicketTest {
     }
 
     @Test
-    public void testFindAllIfDoesntExist() {
+    public void testFindAllIfDoesNotExist() {
         manager.add(ticket1);
         manager.add(ticket2);
         manager.add(ticket3);
@@ -107,11 +99,11 @@ public class TicketTest {
         manager.add(ticket9);
         manager.add(ticket10);
 
-        ArrayList<Ticket> expected = new ArrayList<>();
+        Ticket[] expected = new Ticket[0];
 
-        ArrayList<Ticket> actual = manager.findAll("L", "M");
+       Ticket[] actual = manager.findAll("L", "M");
 
-        Assertions.assertIterableEquals(expected, actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
 }
