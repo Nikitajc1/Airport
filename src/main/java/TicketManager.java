@@ -10,7 +10,6 @@ public class TicketManager {
     public TicketManager(TicketRepository repos) {
         this.repos = repos;
     }
-//    TicketByPriceAsComparator service = new TicketByPriceAsComparator();
 
     public ArrayList<Ticket> findAll(String from, String to, Comparator<Ticket>comparator) {
         Arrays.sort(repos.repository(), comparator);
