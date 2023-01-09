@@ -19,8 +19,22 @@ public class TicketManager {
                 index++;
             }
         }
-        Ticket[] cleanedArray = Arrays.stream(item).filter(Objects::nonNull).toArray(Ticket[]::new);
-        return cleanedArray;
+        item = removeNull(item);
+        return item;
+    }
+
+    public Ticket[] removeNull(Ticket[] item){
+        Ticket[] withoutNull = new Ticket[item.length];
+        int count = -1;
+
+        for(Ticket s : item) {
+            if(s != null) {
+                withoutNull[++count] = s;
+            }
+        }
+
+        item = Arrays.copyOf(withoutNull, count + 1);
+        return item;
     }
 
     public void removeManager(int id) {
