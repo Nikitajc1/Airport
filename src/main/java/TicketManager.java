@@ -1,7 +1,4 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class TicketManager {
@@ -22,8 +19,22 @@ public class TicketManager {
                 index++;
             }
         }
-        Ticket[] cleanedArray = Arrays.stream(item).filter(Objects::nonNull).toArray(Ticket[]::new);
-        return cleanedArray;
+        item = removeNull(item);
+        return item;
+    }
+
+    public Ticket[] removeNull(Ticket[] item){
+        Ticket[] withoutNull = new Ticket[item.length];
+        int count = -1;
+
+        for(Ticket s : item) {
+            if(s != null) {
+                withoutNull[++count] = s;
+            }
+        }
+
+        item = Arrays.copyOf(withoutNull, count + 1);
+        return item;
     }
 
 
